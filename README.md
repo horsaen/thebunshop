@@ -1,2 +1,8 @@
-# cdn
-a simple file upload service
+```
+bun install
+bun run dev
+```
+
+```
+open http://localhost:3000
+```
