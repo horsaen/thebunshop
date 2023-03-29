@@ -1,25 +1,39 @@
 import { Hono } from 'hono'
-import { serveStatic } from 'hono/bun'
+import { html } from 'hono/html'
 
 const app = new Hono()
 
-function Thing () {
-  return (
-    <span>yay</span>
-  )
-}
+const css = `
+  span {
+    color: #fff;
+  }
+  body {
+    margin: 0;
+    background-color: #2a2a2a;
+  }
+`
+// use this in order to remove no doctype error
+const Layout = (props: {children?: any}) => html`
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>The Bun Shop</title>
+    </head>
+    <body>
+      ${props.children}
+    </body>
+  </html>
+`
 
 function Page () {
   return (
-    <html>
-      <head>
-        <title>hi</title>
-      </head>
-      <div>
-        <span>hi</span>
-        <Thing />
-      </div>
-    </html>
+    <Layout>
+      {/* better way of handling this ? */}
+      <style>
+        {css}
+      </style>
+      <span onClick={()=>console.log("hi")}>as</span>
+    </Layout>
   )
 }
 
