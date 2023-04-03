@@ -14,7 +14,7 @@ export default function Home({ ip }) {
   return (
     <>
       <Head>
-        <title>饺子馆</title>
+        <title>饺子馆 | {ip}</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -41,7 +41,6 @@ export default function Home({ ip }) {
               </label>
               {/* <span>{ip}</span> */}
             </div>
-            <span>{ip}</span>
           </div>
         </div>
       </main>
