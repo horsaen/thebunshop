@@ -1,0 +1,26 @@
+.landing {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.title {
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.pinyin {
+    font-size: 15px;
+    height: 10px;
+}
+.mando {
+    font-size: 60px;
+}
