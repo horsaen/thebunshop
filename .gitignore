@@ -36,5 +36,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#file dir
+# file dir
 api/files
+
+# database
+api/data.sqlite

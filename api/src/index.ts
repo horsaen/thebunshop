@@ -1,3 +1,6 @@
+// const query = 'INSERT INTO uploads (secret, ip, file, time) VALUES ("asdfasdfas", "192.168.0.0", "file.png", "12341234")'
+// ^^ this is helpful because i am dumb
+
 import { Elysia, t } from 'elysia'
 import { staticPlugin } from '@elysiajs/static'
 import { cors } from '@elysiajs/cors'
@@ -7,7 +10,12 @@ import fs from 'fs'
 
 const cdnFolder = 'files'
 const db = new Database('data.sqlite', {create: true})
-db.run("CREATE TABLE IF NOT EXISTS uploads (id INTEGER PRIMARY KEY AUTOINCREMENT, file TEXT, time INTEGER, ip TEXT)")
+
+function sqlstr(s) {
+    return "'"+s.replace(/'/g, "''")+"'";
+}
+
+db.run("CREATE TABLE IF NOT EXISTS uploads (id INTEGER PRIMARY KEY AUTOINCREMENT, secret TEXT, ip TEXT, file TEXT, time INTEGER)")
 
 if (!fs.existsSync(`${cdnFolder}`)) {
     fs.mkdirSync(`${cdnFolder}`)
@@ -20,23 +28,28 @@ const app = new Elysia()
         prefix: "/"
     }))
     .get('/', () => {
-        const json = {
-            "message": 200
-        }
+        const json = db.query('SELECT * FROM uploads').all()
         return json
     })
     .post('/', async ({ body, body: {file}, set }) => {
         set.status = 201
         const construct = Date.now() + '-' + body.fileName.replace(/\s/g, "");
         Bun.write(`${cdnFolder}/` + construct, file)
+        const query = 'INSERT INTO uploads (secret, ip, file, time) VALUES ('+sqlstr(body.secret)+', '+sqlstr(body.ip)+', '+sqlstr(construct)+', '+Date.now()+')'
+        db.run(query)
         const json = {
             "message": construct
         }
+        // const query = 'INSERT INTO uploads(file) VALUES('+ body.fileName +',)'
+        // db.run(query)
+        // db.run('INSERT INTO uploads VALUES (' + body.fileName + ',' + Date.now() + ',' + '192.168.0.0' +')')
         return json
     },
     {
         schema: {
             body: t.Object({
+                secret: t.String(),
+                ip: t.String(),
                 fileName: t.String(),
                 file: t.File()
             })
