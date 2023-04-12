@@ -7,6 +7,7 @@ import fs from 'fs'
 
 const cdnFolder = 'files'
 const db = new Database('data.sqlite', {create: true})
+db.run("CREATE TABLE IF NOT EXISTS uploads (id INTEGER PRIMARY KEY AUTOINCREMENT, file TEXT, time INTEGER, ip TEXT)")
 
 if (!fs.existsSync(`${cdnFolder}`)) {
     fs.mkdirSync(`${cdnFolder}`)
