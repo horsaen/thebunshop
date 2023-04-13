@@ -9,6 +9,7 @@
     "@elysiajs/cors": "^0.3.0",
     "@elysiajs/static": "^0.3.2",
     "elysia": "latest",
+    "elysia-rate-limit": "^1.0.3",
     "mongoose": "^7.0.3"
   },
   "devDependencies": {
