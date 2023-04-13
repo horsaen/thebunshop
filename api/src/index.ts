@@ -23,10 +23,12 @@ if (!fs.existsSync(`${cdnFolder}`)) {
 }
 
 const app = new Elysia()
-    .use(cors())
-    .use(rateLimit({
-        responseMessage: "too many requests :("
+    .use(cors({
+        origin: "http://localhost:3001"
     }))
+    // .use(rateLimit({
+    //     responseMessage: "too many requests :("
+    // }))
     .use(staticPlugin({
         assets: "files",
         prefix: "/upload"
@@ -42,6 +44,13 @@ const app = new Elysia()
     })
     .post('/', async ({ body, body: {file}, set }) => {
         set.status = 201
+        if (body.secret.length !== 32) {
+            set.status = 500
+            const json = {
+                "message": "INVALID SECRET"
+            }
+            return json
+        }
         const construct = Date.now() + '-' + body.fileName.replace(/\s/g, "");
         Bun.write(`${cdnFolder}/` + construct, file)
         const query = 'INSERT INTO uploads (secret, ip, file, time) VALUES ('+sqlstr(body.secret)+', '+sqlstr(body.ip)+', '+sqlstr(construct)+', '+Date.now()+')'

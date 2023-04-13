@@ -16,6 +16,7 @@ export default function Home({ ip }) {
   
   const [secret, setSecret] = useState('')
 
+  // verify that there's no infinite loop because useeffect moment
   useEffect(() => {
     if(window.localStorage.getItem('secret') == null) {
       let input = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -59,10 +60,18 @@ export default function Home({ ip }) {
     .catch((err) => setUploadRes(err))
   }
 
+  // is there a better way to do this ? probably >:|
+  const resetUpload = (e) => {
+    e.preventDefault()
+    setUploadRes(null)
+    setIsUpload(false)
+    setUploadText("Upload File(s)")
+  }
+
   return (
     <>
       <Head>
-        <title>{"饺子馆"}</title>
+        <title>{"Home | 饺子馆"}</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -86,25 +95,31 @@ export default function Home({ ip }) {
               </a>
             </div>
             <form onSubmit={uploadHander} className={styles.input}>
-              <div>
-                <input id="input" type="file" onChange={changeHandler} />
-                <label htmlFor="input">
-                  <span>{uploadText}</span>
-                </label>
-                {isUpload ?
-                <button className={styles.uploadButton} type="submit"><FiUpload /></button>
-                : null }
-              </div>
               {uploadRes !== null ?
-                <div className={styles.response}>
-                  <Link rel="noreferrer" target="_blank" href={api + '/upload/' + uploadRes}>{uploadRes}</Link>
-                  <CopyToClipboard text={api + '/upload/' + uploadRes}>
-                    <button className={styles.copyButton} type="button">
-                      <BiCopy />
-                    </button>
-                  </CopyToClipboard>
+                <div className={styles.resContainer}>
+                  <div className={styles.response}>
+                    <Link rel="noreferrer" target="_blank" href={api + '/upload/' + uploadRes}>{uploadRes}</Link>
+                    <CopyToClipboard text={api + '/upload/' + uploadRes}>
+                      <button className={styles.copyButton} type="button">
+                        <BiCopy />
+                      </button>
+                    </CopyToClipboard>
+                  </div>
+                  <div>
+                    <button type="reset" onClick={resetUpload} className={styles.resetButton}>Upload more?</button>
+                  </div>
                 </div>
-              : null }
+              : 
+                <div className={styles.upload}>
+                  <input id="input" type="file" onChange={changeHandler} />
+                  <label htmlFor="input">
+                    <span>{uploadText}</span>
+                  </label>
+                  {isUpload ?
+                  <button className={styles.uploadButton} type="submit"><span><FiUpload /></span></button>
+                  : null }
+                </div>
+              }
             </form>
           </div>
         </div>
@@ -112,7 +127,6 @@ export default function Home({ ip }) {
     </>
   )
 }
-
 
 export async function getServerSideProps({ req }) {
   const ip = req.headers['x-forwarded-for'] || "192.168.0.0"

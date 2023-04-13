@@ -53,7 +53,7 @@ export default function Uploads () {
     return (
         <>
             <Head>
-                <title>Uploads</title>
+                <title>Uploads | 饺子馆</title>
             </Head>
             <Navbar />
             <div className={styles.page}>
