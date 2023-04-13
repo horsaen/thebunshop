@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { useState, useEffect } from 'react'
 import Navbar from '@/components/Navbar'
@@ -10,10 +10,12 @@ import styles from '@/styles/Home.module.css'
 import { BiCopy } from 'react-icons/bi'
 import { FiUpload } from 'react-icons/fi'
 
-export default function Home({ ip }) {
+const api = process.env.NEXT_PUBLIC_APIBASE || ""
 
-  const [secret, setSecret] = useState('')
+export default function Home({ ip }) {
   
+  const [secret, setSecret] = useState('')
+
   useEffect(() => {
     if(window.localStorage.getItem('secret') == null) {
       let input = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -23,6 +25,8 @@ export default function Home({ ip }) {
       }
       window.localStorage.setItem('secret', output)
       setSecret(output)
+    } else {
+      setSecret(window.localStorage.getItem('secret') || "")
     }
   }, [])
 
@@ -46,7 +50,7 @@ export default function Home({ ip }) {
       formData.append('fileName', uploadText)
       formData.append('file', file)
     axios
-    .post('http://localhost:3000', formData)
+    .post(api, formData)
     .then((res) => {
       if (res.status == 201) {
         setUploadRes(res.data.message)
@@ -58,7 +62,7 @@ export default function Home({ ip }) {
   return (
     <>
       <Head>
-        <title>{"饺子馆 | " + ip}</title>
+        <title>{"饺子馆"}</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -82,21 +86,23 @@ export default function Home({ ip }) {
               </a>
             </div>
             <form onSubmit={uploadHander} className={styles.input}>
-              <input id="input" type="file" onChange={changeHandler} />
-              <label htmlFor="input">
-                <span>{uploadText}</span>
-              </label>
-              {isUpload ?
-              <button className={styles.uploadButton} type="submit"><FiUpload /></button>
-              : null }
+              <div>
+                <input id="input" type="file" onChange={changeHandler} />
+                <label htmlFor="input">
+                  <span>{uploadText}</span>
+                </label>
+                {isUpload ?
+                <button className={styles.uploadButton} type="submit"><FiUpload /></button>
+                : null }
+              </div>
               {uploadRes !== null ?
                 <div className={styles.response}>
-                  <span>{uploadRes}</span>
-                  {/* <CopyToClipboard text={'http://localhost:3000/' + uploadRes}> */}
+                  <Link rel="noreferrer" target="_blank" href={api + '/upload/' + uploadRes}>{uploadRes}</Link>
+                  <CopyToClipboard text={api + '/upload/' + uploadRes}>
                     <button className={styles.copyButton} type="button">
                       <BiCopy />
                     </button>
-                  {/* </CopyToClipboard> */}
+                  </CopyToClipboard>
                 </div>
               : null }
             </form>

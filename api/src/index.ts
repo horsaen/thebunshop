@@ -25,10 +25,15 @@ const app = new Elysia()
     .use(cors())
     .use(staticPlugin({
         assets: "files",
-        prefix: "/"
+        prefix: "/upload"
     }))
-    .get('/', () => {
-        const json = db.query('SELECT * FROM uploads').all()
+    // exclude because don't need
+    // .get('/', () => {
+    //     const json = db.query('SELECT * FROM uploads').all()
+    //     return json
+    // })
+    .get('/uploads/:id', ({ params: { id }}) => {
+        const json = db.query('SELECT secret, file, time FROM uploads WHERE secret = ?').all(id)
         return json
     })
     .post('/', async ({ body, body: {file}, set }) => {
