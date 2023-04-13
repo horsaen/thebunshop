@@ -5,6 +5,7 @@ import { Elysia, t } from 'elysia'
 import { staticPlugin } from '@elysiajs/static'
 import { cors } from '@elysiajs/cors'
 import { Database } from 'bun:sqlite'
+import { rateLimit } from 'elysia-rate-limit'
 
 import fs from 'fs'
 
@@ -23,6 +24,9 @@ if (!fs.existsSync(`${cdnFolder}`)) {
 
 const app = new Elysia()
     .use(cors())
+    .use(rateLimit({
+        responseMessage: "too many requests :("
+    }))
     .use(staticPlugin({
         assets: "files",
         prefix: "/upload"
@@ -59,6 +63,15 @@ const app = new Elysia()
                 file: t.File()
             })
         }
+    })
+    .delete('/upload/:id', async ({params: { id }, set}) => {
+        const query = db.query('DELETE FROM uploads WHERE file = ?')
+        query.run(id)
+        fs.unlinkSync(`${cdnFolder}/` + id)
+        const json = {
+            message: "Deleted :("
+        }
+        return json
     })
     .listen(3000)
 
