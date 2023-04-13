@@ -1,3 +1,7 @@
 .navbar {
+    margin-left: 10px;
     position: fixed;
+}
+.navbar a {
+    color: #fff;
 }
