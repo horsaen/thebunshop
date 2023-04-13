@@ -31,23 +31,29 @@
 .mando {
     font-size: 60px;
 }
-.input input {
+/* .input input {
     display: none;
 }
-.input label {
+.input label,
+.response span {
     cursor: pointer;
     height: 50px;
     border: 1px solid #fff;
     padding: 10px;
 }
 .input button {
-    all: unset;
     margin-left: 10px;
     padding: 10px;
+    background-color: #000;
     border: 1px solid #fff;
 }
+.uploadButton,
+.copyButton {
+    cursor: pointer;
+}
 .input label:hover,
-.uploadButton:hover {
+.uploadButton:hover,
+.copyButton:hover {
     background-color: #2a2a2a;
     transition: all 0.2s ease;
-}
+} */

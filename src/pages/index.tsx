@@ -12,6 +12,8 @@ import { FiUpload } from 'react-icons/fi'
 
 export default function Home({ ip }) {
 
+  const [secret, setSecret] = useState('')
+  
   useEffect(() => {
     if(window.localStorage.getItem('secret') == null) {
       let input = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -20,8 +22,9 @@ export default function Home({ ip }) {
         output += input.charAt(Math.floor(Math.random() * input.length));
       }
       window.localStorage.setItem('secret', output)
+      setSecret(output)
     }
-  })
+  }, [])
 
   const [isUpload, setIsUpload] = useState(false)
   const [file, setFile] = useState('')
@@ -38,6 +41,8 @@ export default function Home({ ip }) {
   const uploadHander = (e) => {
     e.preventDefault()
     const formData = new FormData()
+      formData.append('secret', secret)
+      formData.append('ip', ip)
       formData.append('fileName', uploadText)
       formData.append('file', file)
     axios
@@ -87,11 +92,11 @@ export default function Home({ ip }) {
               {uploadRes !== null ?
                 <div className={styles.response}>
                   <span>{uploadRes}</span>
-                  <CopyToClipboard text={'http://localhost:3000/' + uploadRes}>
-                    <button type="button">
+                  {/* <CopyToClipboard text={'http://localhost:3000/' + uploadRes}> */}
+                    <button className={styles.copyButton} type="button">
                       <BiCopy />
                     </button>
-                  </CopyToClipboard>
+                  {/* </CopyToClipboard> */}
                 </div>
               : null }
             </form>

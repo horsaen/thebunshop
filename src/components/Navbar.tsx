@@ -3,7 +3,7 @@ import styles from './Navbar.module.css'
 
 export default function Navbar() {
     return (
-        <div>
+        <div className={styles.navbar}>
             <Link href="/">Home</Link>
             <span> | </span>
             <Link href="/uploads">Uploads</Link>
