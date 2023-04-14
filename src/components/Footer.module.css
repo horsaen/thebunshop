@@ -1,0 +1,43 @@
+.footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 2rem;
+    height: 85px;
+}
+.footer a {
+    color: #fff;
+}
+.footer div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.footer div:nth-child(2) {
+    flex-direction: row;
+    width: 25px;
+    font-size: 30px;
+}
+.footer div:nth-child(2) a {
+    padding: 0 10px;
+}
+
+@media (prefers-color-scheme: light) {
+    .footer a {
+        color: #000;
+    }
+}
+
+/* it looks so weird on mobile i don't know why, fix later :p */
+@media (max-width: 768px) {
+    .footer {
+        max-width: 100vw;
+        font-size: 12px;
+        margin: none;
+    }
+    .footer div:nth-child(2) {
+        flex-direction: row;
+        width: none;
+        font-size: 25px;
+    }
+}

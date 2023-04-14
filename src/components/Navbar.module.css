@@ -1,0 +1,12 @@
+.navbar {
+    margin-left: 10px;
+    position: fixed;
+}
+.navbar a {
+    color: #fff;
+}
+@media (prefers-color-scheme: light) {
+    .navbar a {
+        color: #000;
+    }
+}
