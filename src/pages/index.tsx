@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { useState, useEffect } from 'react'
 import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import axios from 'axios'
 import styles from '@/styles/Home.module.css'
 
@@ -71,10 +72,13 @@ export default function Home({ ip }) {
   return (
     <>
       <Head>
-        <title>{"Home | 饺子馆"}</title>
-        <meta name="description" content="" />
+        <title>{"饺子馆"}</title>
+        <meta name="description" content="The Bun Shop is fast and simple file hosting site made with BunJS." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:description" content="The Bun Shop is fast and simple file hosting site made with BunJS." />
+        <meta property="og:title" content="The Bun Shop | 饺子馆" />
+        <meta content="#f2e6d7" data-react-helmet="true" name="theme-color" />
       </Head>
       <Navbar />
       <main>
@@ -124,6 +128,7 @@ export default function Home({ ip }) {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   )
 }

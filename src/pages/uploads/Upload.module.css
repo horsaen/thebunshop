@@ -1,6 +1,3 @@
-.page {
-    padding-top: 35px;
-}
 .bun {
     height: 100vh;
     width: 100vw;
@@ -14,6 +11,9 @@
 }
 .bun div a {
     color: #fff;
+}
+.cardContainer {
+    padding-top: 30px;
 }
 .card {
     position: relative;
@@ -31,7 +31,22 @@
     right: 10px;
     height: 50px;
 }
+.card button {
+    all: unset;
+    cursor: pointer;
+}
+.card button,
 .card div a {
     font-size: 32px;
     color: #fff;
+}
+@media (prefers-color-scheme: light) {
+    .card {
+        border: 1px solid #000;
+    }
+    .card button,
+    .card div a,
+    .bun div a {
+        color: #000;
+    }
 }

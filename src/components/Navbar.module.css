@@ -5,3 +5,8 @@
 .navbar a {
     color: #fff;
 }
+@media (prefers-color-scheme: light) {
+    .navbar a {
+        color: #000;
+    }
+}

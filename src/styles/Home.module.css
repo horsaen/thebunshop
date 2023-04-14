@@ -86,3 +86,22 @@
     background-color: #2a2a2a;
     transition: all 0.2s ease;
 }
+
+@media (prefers-color-scheme: light) {
+    .upload label,
+    .response a,
+    .upload button,
+    .response button,
+    .resetButton {
+        border: 1px solid #000;
+        color: #000;
+    }
+    .upload label:hover,
+    .uploadButton:hover,
+    .response button:hover,
+    .resetButton:hover,
+    .response a:hover {
+        background-color: #8f8f8f;
+        transition: all 0.2s ease;
+    }
+}

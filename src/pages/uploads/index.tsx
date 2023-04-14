@@ -53,7 +53,7 @@ export default function Uploads () {
     return (
         <>
             <Head>
-                <title>Uploads | 饺子馆</title>
+                <title>饺子馆</title>
             </Head>
             <Navbar />
             <div className={styles.page}>
@@ -70,15 +70,18 @@ export default function Uploads () {
                             <Link href="/">upload one? :3</Link>
                         </div>
                     </div>
-                : null }
-                {data && data.map((data) => (
-                    <UploadCard
+                :
+                    <div className={styles.cardContainer}>
+                    {data && data.map((data) => (
+                        <UploadCard
                         key=''
                         secret={data.secret}
                         file={data.file}
                         time={data.time}
-                    />
-                ))}
+                        />
+                        ))}
+                    </div>
+                }
             </div>
         </>
     )
