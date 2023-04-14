@@ -75,7 +75,7 @@ export default function Home({ ip }) {
         <title>{"饺子馆"}</title>
         <meta name="description" content="The Bun Shop is fast and simple file hosting site made with BunJS." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/bun.png" />
         <meta property="og:description" content="The Bun Shop is fast and simple file hosting site made with BunJS." />
         <meta property="og:title" content="The Bun Shop | 饺子馆" />
         <meta content="#f2e6d7" data-react-helmet="true" name="theme-color" />
