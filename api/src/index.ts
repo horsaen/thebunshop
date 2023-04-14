@@ -24,7 +24,7 @@ if (!fs.existsSync(`${cdnFolder}`)) {
 
 const app = new Elysia()
     .use(cors({
-        origin: "http://localhost:3001"
+        origin: "https://bunshop.horsaen.com"
     }))
     // .use(rateLimit({
     //     responseMessage: "too many requests :("
