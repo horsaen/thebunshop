@@ -1,38 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The Bun Shop
 
-## Getting Started
+Built with Bun, ElysiaJS, and NextJS.
 
-First, run the development server:
+## Development
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+Simply clone the repo:
+```
+git clone https://github.com/horsaen/thebunshop
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Make sure to edit the cors allowed link, found [here](api/src/index.ts). Or delete the entire {origin: "link"} statement entirely to accept all origins. Also make sure to edit both .env files accordingly, found [here](.env.production) and [here](.env.development). 
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Also comment out the rate limiter for development.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Then run the dev server:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```
+cd api && bun i && bun run --hot scr/index.ts
+```
+^^ must cd to dir in order to generate sqlite file in correct location ^^
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Then run the frontend in a split terminal (CTRL + SHFT + 5 for VSCode):
+```
+pnpm i && pnpm dev -p 3001
+```
+^^ or any other port becuase it doesn't really matter, just not on port 3000 ^^
 
-## Learn More
+## Production
 
-To learn more about Next.js, take a look at the following resources:
+The same steps follow, but uncomment rate limiter, adjust cors and build the nextjs project. You're all set :3
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Screenshots
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Will finish later
