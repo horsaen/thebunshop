@@ -2,29 +2,38 @@
 
 Built with Bun, ElysiaJS, and NextJS.
 
+As NextJS understably tries to compile the API folder, the API is found in [a different git repo](https://github.com/horsaen/thebunshop-api)
+
 ## Development
 
-Simply clone the repo:
+Clone both repos:
 ```
-git clone https://github.com/horsaen/thebunshop
+git clone https://github.com/horsaen/thebunshop && git clone https://github.com/horsaen/thebunshop-api
 ```
 
-Make sure to edit the cors allowed link, found [here](api/src/index.ts). Or delete the entire {origin: "link"} statement entirely to accept all origins. Also make sure to edit both .env files accordingly, found [here](.env.production) and [here](.env.development). 
+Then install dependencies for both projects (preferably using a split terminal, CTRL + SHFT + 5 on VSCode):
 
-Also comment out the rate limiter for development.
+Frontend:
+```
+pnpm i
+```
+Backend:
+```
+bun i
+```
 
-Then run the dev server:
+Then start both projects:
 
+Frontend:
 ```
-cd api && bun i && bun run --hot scr/index.ts
+pnpm dev -p 3001
 ```
-^^ must cd to dir in order to generate sqlite file in correct location ^^
+^^ start this using any port other than 3000, as the API runs on this port ^^
 
-Then run the frontend in a split terminal (CTRL + SHFT + 5 for VSCode):
+Backend:
 ```
-pnpm i && pnpm dev -p 3001
+bun dev
 ```
-^^ or any other port becuase it doesn't really matter, just not on port 3000 ^^
 
 ## Production
 
@@ -33,3 +42,15 @@ The same steps follow, but uncomment rate limiter, adjust cors and build the nex
 ## Screenshots
 
 Will finish later
+
+## Service files
+
+I wrote service files :D
+
+```
+WIP
+```
+
+```
+WIP
+```
