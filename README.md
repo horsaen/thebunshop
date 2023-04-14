@@ -2,24 +2,16 @@
 
 Built with Bun, ElysiaJS, and NextJS.
 
-As NextJS understably tries to compile the API folder, the API is found in [a different git repo](https://github.com/horsaen/thebunshop-api)
-
 ## Development
 
-Clone both repos:
+Clone the repo:
 ```
-git clone https://github.com/horsaen/thebunshop && git clone https://github.com/horsaen/thebunshop-api
+git clone https://github.com/horsaen/thebunshop
 ```
 
-Then install dependencies for both projects (preferably using a split terminal, CTRL + SHFT + 5 on VSCode):
-
-Frontend:
+Then install dependencies:
 ```
-pnpm i
-```
-Backend:
-```
-bun i
+cd thebunshop && pnpm i && cd api && bun i
 ```
 
 Then start both projects:
@@ -37,7 +29,7 @@ bun dev
 
 ## Production
 
-The same steps follow, but uncomment rate limiter, adjust cors and build the nextjs project. You're all set :3
+The same steps follow, but uncomment rate limiter, adjust cors, and build the nextjs project. You're all set :3
 
 ## Screenshots
 
