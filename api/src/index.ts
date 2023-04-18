@@ -16,7 +16,7 @@ function sqlstr(s) {
     return "'"+s.replace(/'/g, "''")+"'";
 }
 
-db.run("CREATE TABLE IF NOT EXISTS uploads (id INTEGER PRIMARY KEY AUTOINCREMENT, secret TEXT, ip TEXT, file TEXT, time INTEGER)")
+db.run("CREATE TABLE IF NOT EXISTS uploads (id INTEGER PRIMARY KEY AUTOINCREMENT, secret TEXT, ip TEXT, file TEXT, extension TEXT, time INTEGER)")
 
 if (!fs.existsSync(`${cdnFolder}`)) {
     fs.mkdirSync(`${cdnFolder}`)
@@ -39,7 +39,7 @@ const app = new Elysia()
     //     return json
     // })
     .get('/uploads/:id', ({ params: { id }}) => {
-        const json = db.query('SELECT secret, file, time FROM uploads WHERE secret = ?').all(id)
+        const json = db.query('SELECT secret, file, extension, time FROM uploads WHERE secret = ?').all(id)
         return json
     })
     .post('/', async ({ body, body: {file}, set }) => {
@@ -52,15 +52,23 @@ const app = new Elysia()
             return json
         }
         const construct = Date.now() + '-' + body.fileName.replace(/\s/g, "");
+
+        var ext
+        if (body.fileName.includes(".")) {
+            ext = body.fileName.split('.').pop();
+        } else {
+            ext = ""
+        }
+
         Bun.write(`${cdnFolder}/` + construct, file)
-        const query = 'INSERT INTO uploads (secret, ip, file, time) VALUES ('+sqlstr(body.secret)+', '+sqlstr(body.ip)+', '+sqlstr(construct)+', '+Date.now()+')'
+
+        const query = 'INSERT INTO uploads (secret, ip, file, extension, time) VALUES ('+sqlstr(body.secret)+', '+sqlstr(body.ip)+', '+sqlstr(construct)+', '+sqlstr(ext)+', '+Date.now()+')'
         db.run(query)
+
         const json = {
             "message": construct
         }
-        // const query = 'INSERT INTO uploads(file) VALUES('+ body.fileName +',)'
-        // db.run(query)
-        // db.run('INSERT INTO uploads VALUES (' + body.fileName + ',' + Date.now() + ',' + '192.168.0.0' +')')
+
         return json
     },
     {
