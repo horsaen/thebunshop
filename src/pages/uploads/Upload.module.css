@@ -13,23 +13,53 @@
     color: #fff;
 }
 .cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     padding-top: 30px;
 }
 .card {
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 50px;
+    height: 300px;
+    width: 250px;
     margin: 10px;
     padding: 10px;
     border: 1px solid #fff;
 }
-.card div {
+.textContainer {
+    position: absolute;
+    padding: 10px;
+    bottom: 10px;
+    left: 0;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.buttonContainer {
     position: absolute;
     display: flex;
+    flex-direction: column;
     align-items: center;
     right: 10px;
     height: 50px;
+}
+.fileImg {
+    position: absolute;
+    top: 50px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fileImg svg {
+    height: 125px;
+    width: 125px;
+    color: #fff;
+    fill: #fff;
 }
 .card button {
     all: unset;
