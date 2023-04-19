@@ -38,6 +38,7 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    overflow-wrap: break-word;
 }
 .buttonContainer {
     position: absolute;
