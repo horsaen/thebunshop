@@ -33,7 +33,15 @@ The same steps follow, but uncomment rate limiter, adjust cors, and build the ne
 
 ## Screenshots
 
-Will finish later
+- [Landing](/docs/screenshots/desktop/landing.png)
+- [Upload](/docs/screenshots/desktop/upload.png)
+- [Upload List](/docs/screenshots/desktop/uploads.png)
+
+- [Mobile Landing](/docs/screenshots/mobile/landing.png)
+- [Mobile Upload](/docs/screenshots/mobile/upload.png)
+- [Mobile Upload List](/docs/screenshots/mobile/single.png)
+- [Mobile Upload List 2](/docs/screenshots/mobile/double.png)
+- [Empty Upload List](/docs/screenshots/mobile/no%20more%20womp%20womp.png)
 
 ## Service files
 
