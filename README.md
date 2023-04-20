@@ -47,10 +47,43 @@ The same steps follow, but uncomment rate limiter, adjust cors, and build the ne
 
 I wrote service files :D
 
+```systemd
+[Unit]
+Description=thebunshop frontend service
+After=network.target
+
+[Service]
+User=<USER>
+Group=<USER>
+Type=simple
+KillMode=control-group
+WorkingDirectory=<THEBUNSHOP DIRECTORY>
+ExecStart=/bin/bash -c "npx next start -p <PORTNUMBER>"
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=mutli-user.target
 ```
-WIP
-```
+^^ remember to build :)
+
+Well i thought much like running `/bin/bash -c "npx next start -p <PORTNUMBER>"` there would've been no problem, but due to some random bin location shenanigans /bin/bash is unable to find the bin files for bun itself, so make sure bun is installed to a user that the sevice file can access. then find the directory of the bin file using `which bun` and then substitute the output for the <BUN BIN DIRECTORY> in the service file :|
 
 ```
-WIP
+[Unit]
+Description=thebunshop api service
+After=network.target
+
+[Service]
+User=<USER>
+Group=<USER>
+Type=simple
+KillMode=control-group
+WorkingDirectory=<THEBUNSHOP DIRECTORY>/api
+ExecStart=<BUN BIN DIRECTORY> run src/index.ts"
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=mutli-user.target
 ```
